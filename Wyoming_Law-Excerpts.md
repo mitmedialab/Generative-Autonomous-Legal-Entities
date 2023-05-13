@@ -1,7 +1,13 @@
 > The following are relevant excerpts of Wyoming law regarding algorithmically managed LLCs
 
 
-# FIDUCIARY FUNCTIONS
+# EXAMPLE STATUTORY DUTIES APPLICABLE TO WYOMING LLCs
+
+## 17-29-203. Signing of records to be delivered for filing to secretary of state.
+
+See, for example: https://law.justia.com/codes/wyoming/2015/title-17/chapter-29/article-2/section-17-29-203/
+
+# FIDUCIARY FUNCTIONS APPLICABLE TO WYOMING LLCs
 
 17-29-409. Standards of conduct for members and managers.
 
