@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "capabilities"
+dynamic = ["version"]
+# version="0.3.6"
+authors = [
+  { name="LLM LLC", email="inquiries@llm.llc" },
+]
+description = "Tooling and infrastructure for autonomous legal entities"
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.8"
+dependencies = [
+  "capabilities",
+  "rich",
+  "asyncio",
+  "fire",
+  "tiktoken",
+]
