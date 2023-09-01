@@ -1,12 +1,10 @@
 *.log
 **.env
-.DS_Store
+**/.DS_Store
 **__pycache__
 **.chroma/
 token.json
 credentials.json
-
-# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -24,4 +22,3 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
