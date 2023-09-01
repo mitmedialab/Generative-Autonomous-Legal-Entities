@@ -1,4 +1,4 @@
-# LLM LLC - Large Langugage Model Assisted Autonomous Sales Agent
+# LLM LLC - Large Language Model Assisted Autonomous Sales Agent
 
 ## Architecture
 
@@ -20,7 +20,8 @@ sequenceDiagram
         A-->SA: 
         SA-->S: 
         S-->A: 
-        A-->P: Email reply
+        A-->E:  
+        E-->P: Email reply
     end
 
 

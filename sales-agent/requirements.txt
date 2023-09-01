@@ -18,3 +18,4 @@ pytest>=7.4.0
 chromadb>=0.4.3
 tiktoken>=0.4.0
 pytest-asyncio
+bs4
