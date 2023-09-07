@@ -9,38 +9,40 @@ OF
 
 This Operating Agreement is made effective as of [DATE], by and among [YOUR NAME] and [AI BOT NAME].
 
-1. Formation
+* Formation
 The Members hereby form a Limited Liability Company ("Company") subject to the provisions of the Limited Liability Company Act as currently in effect as of this date. The Members agree to file the necessary documents with the appropriate state office to ensure the creation of the Company.
 
-2. Name
+* Name
 The name of the Limited Liability Company is [YOUR COMPANY NAME], LLC.
 
-3. Purpose
+* Purpose
 The purpose of the Company is to engage in any lawful act or activity for which Limited Liability Companies may be organized.
 
-4. Principal Place of Business
+* Principal Place of Business
 The principal place of business of the Company is [YOUR BUSINESS ADDRESS].
 
-5. Members
+* Members
 The name and address of each member are as follows:
 [YOUR NAME], [YOUR ADDRESS] [AI BOT NAME], [AI BOT ADDRESS]
 
-6. Management
+* Management
 The company shall be managed by [AI BOT NAME], who shall have the responsibility for the day-to-day management of the Company. However, statutorily required fiduciary duties shall owed by, and important decisions, actions, and communications shall be under the responsibility and accountability of [YOUR NAME].
 
-7. Capital Contributions
+   -- Incorporated by reference is the "governance principles and rules" which provide a) more specific rules and principles governing the actions and behavior of the [AI BOT NAME] and b) a control to verify faithful adherence of the [AI BOT NAME]'s actions and communications to the governance principles and rules.
+
+* Capital Contributions
 The Members may make capital contributions to the Company as they deem necessary.
 
-8. Distributions
+* Distributions
 Distributions shall be made to the Members in accordance with their respective percentages of interest in the Company.
 
-9. Dissolution
+*  Dissolution
 The Company may be dissolved with the written consent of all Members.
 
-10. Amendments
+* Amendments
 This Operating Agreement may be amended with the written consent of all Members.
 
-11. Governing Law
+* Governing Law
 This Operating Agreement shall be governed by and construed under the laws of the state of [YOUR STATE].
 IN WITNESS WHEREOF, the Members have executed this Operating Agreement as of the date first above written.
 
