@@ -26,7 +26,7 @@ The name and address of each member are as follows:
 [YOUR NAME], [YOUR ADDRESS] [AI BOT NAME], [AI BOT ADDRESS]
 
 6. Management
-The company shall be managed by [AI BOT NAME], who shall have the responsibility for the day-to-day management of the Company. However, important decisions, actions, and communications shall be under the responsibility and accountability of [YOUR NAME].
+The company shall be managed by [AI BOT NAME], who shall have the responsibility for the day-to-day management of the Company. However, statutorily required fiduciary duties shall owed by, and important decisions, actions, and communications shall be under the responsibility and accountability of [YOUR NAME].
 
 7. Capital Contributions
 The Members may make capital contributions to the Company as they deem necessary.
