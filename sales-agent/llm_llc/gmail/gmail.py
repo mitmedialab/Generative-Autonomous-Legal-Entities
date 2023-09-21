@@ -8,6 +8,8 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+from llm_llc.gmail.email_body import parse_latest_reply
+
 # Define the scopes needed for the Gmail API
 SCOPES = [
     "https://www.googleapis.com/auth/gmail.labels",
@@ -33,6 +35,38 @@ def get_credentials():
         with open("token.json", "w") as token:
             token.write(creds.to_json())
     return creds
+
+
+def get_message_data(msg):
+    txt = gmail_service.users().messages().get(userId="me", id=msg["id"]).execute()
+
+    # Get value of 'payload' from dictionary 'txt'
+    payload = txt["payload"]
+    headers = payload["headers"]
+
+    # Look for Subject and Sender Email in the headers
+    for d in headers:
+        if d["name"] == "Subject":
+            subject = d["value"]
+        if d["name"] == "From":
+            sender = d["value"]
+
+    # The Body of the message is in Encrypted format. So, we have to decode it.
+    # Get the data and decode it with base 64 decoder.
+    parts = payload.get("parts")[0] if payload.get("parts") else payload
+    data = parts["body"]["data"]
+    data = data.replace("-", "+").replace("_", "/")
+    decoded_data = base64.b64decode(data)
+    print(f"Decoded: {decoded_data}")
+
+    # Now, the data obtained is in lxml. So, we will parse
+    # it with BeautifulSoup library
+    soup = BeautifulSoup(decoded_data, "lxml")
+    body = soup.body()
+
+    msg_body = parse_latest_reply(str(body[0]))
+
+    return {"sender": sender, "subject": subject, "body": msg_body, "msg": msg}
 
 
 def process_unread_emails():
@@ -95,7 +129,7 @@ def mark_email_as_read(email_id):
     ).execute()
 
 
-def reply(reply_message, original_email_id):
+def reply(reply_message, original_email_id, threadId):
     try:
         original_email = (
             gmail_service.users()
@@ -114,16 +148,22 @@ def reply(reply_message, original_email_id):
         to = [i["value"] for i in headers if i["name"] == "Delivered-To"][0]
         sender = [i["value"] for i in headers if i["name"] == "From"][0]
         message_id = [i["value"] for i in headers if i["name"] == "Message-ID"][0]
+        prev_reference = [i["value"] for i in headers if i["name"] == "References"]
+        references = (
+            f"{prev_reference[0]} {message_id}" if prev_reference else message_id
+        )
+        reply_subject = f"Re: {subject}" if "Re: " not in subject else subject
 
         gmail_reply_message = {
             "raw": base64.urlsafe_b64encode(
                 f"From: {to}\n"
                 f"To: {sender}\n"
-                f"Subject: Re: {subject}\n"
-                f"References: {message_id}\n"
+                f"Subject: {reply_subject}\n"
+                f"References: {references}\n"
                 f"In-Reply-To: {message_id}\n\n"
                 f"{reply_message}\n".encode("utf-8")
-            ).decode("utf-8")
+            ).decode("utf-8"),
+            "threadId": f"{threadId}",
         }
 
         try:
@@ -163,3 +203,26 @@ def get_label_id(label_name):
             return label["id"]
 
     return None
+
+
+def get_thread(thread_id):
+    return gmail_service.users().threads().get(userId="me", id=thread_id).execute()
+
+
+def get_history(thread_id):
+    thread = get_thread(thread_id)
+    msgs = thread["messages"]
+
+    return [get_message_data(msg=msg)["body"] for msg in msgs]
+
+
+creds = get_credentials()
+gmail_service = build("gmail", "v1", credentials=creds)
+results = gmail_service.users().messages().list(userId="me", q="is:unread").execute()
+messages = results.get("messages", [])
+if not messages:
+    print("No unread emails found.")
+else:
+    msg = messages[0]
+    print(f"Message: {msg}")
+    get_history(msg["threadId"])

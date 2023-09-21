@@ -1,7 +1,7 @@
 from langchain import LLMChain, PromptTemplate
 from langchain.llms import BaseLLM
 
-from llm_llc.loggers.time_logger import time_logger
+from llm_llc.loggers.sys_logger import time_logger
 from llm_llc.prompts.prompts import PromptTypes, Prompts
 
 

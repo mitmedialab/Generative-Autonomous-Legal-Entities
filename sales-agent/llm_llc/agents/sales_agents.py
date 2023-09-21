@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 from llm_llc.chains.sales_conv_chain import SalesConversationChain
 from llm_llc.chains.stage_analyzer_chain import StageAnalyzerChain
 
-from llm_llc.loggers.time_logger import time_logger
+from llm_llc.loggers.sys_logger import time_logger
 from llm_llc.parsers import SalesConvoOutputParser
 from llm_llc.prompts.prompts import PromptTypes, Prompts
 from llm_llc.stages import ConversationStages
@@ -56,19 +56,17 @@ class LlmLlcAgent(Chain, BaseModel):
         self.conversation_history = []
 
     @time_logger
-    def determine_conversation_stage(self):
+    def get_conversation_stage(self):
         self.conversation_stage_id = self.stage_analyzer_chain.run(
             conversation_history="\n".join(self.conversation_history).rstrip("\n"),
             conversation_stage_id=self.conversation_stage_id,
             conversation_stages=ConversationStages.to_str(),
         )
 
-        print(f">>>Conversation Stage ID: {self.conversation_stage_id}")
         self.current_conversation_stage = self.retrieve_conversation_stage(
             self.conversation_stage_id
         )
-
-        print(f">>>Conversation Stage: {self.current_conversation_stage}")
+        return self.current_conversation_stage
 
     def human_step(self, human_input):
         # process human input
