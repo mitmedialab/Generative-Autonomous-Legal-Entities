@@ -162,33 +162,13 @@ class LlmLlcAgent(Chain, BaseModel):
     @classmethod
     @time_logger
     def from_llm(cls, llm: BaseLLM, verbose: bool = False, **kwargs) -> "LlmLlcAgent":
-        """Initialize the SalesGPT Controller."""
         stage_analyzer_chain = StageAnalyzerChain.from_llm(llm, verbose=verbose)
-        print(kwargs)
-        if (
-            "use_custom_prompt" in kwargs.keys()
-            and kwargs["use_custom_prompt"] == "True"
-        ):
-            use_custom_prompt = deepcopy(kwargs["use_custom_prompt"])
-            custom_prompt = deepcopy(kwargs["custom_prompt"])
 
-            # clean up
-            del kwargs["use_custom_prompt"]
-            del kwargs["custom_prompt"]
+        sales_conversation_utterance_chain = SalesConversationChain.from_llm(
+            llm, verbose=verbose
+        )
 
-            sales_conversation_utterance_chain = SalesConversationChain.from_llm(
-                llm,
-                verbose=verbose,
-                use_custom_prompt=use_custom_prompt,
-                custom_prompt=custom_prompt,
-            )
-
-        else:
-            sales_conversation_utterance_chain = SalesConversationChain.from_llm(
-                llm, verbose=verbose
-            )
-
-        if "use_tools" in kwargs.keys() and kwargs["use_tools"] is True:
+        if "use_tools" in kwargs.keys():
             # set up agent with tools
             product_catalog = kwargs["product_catalog"]
             knowledge_base = load_product_catalog(product_catalog)

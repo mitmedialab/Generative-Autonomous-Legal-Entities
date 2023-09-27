@@ -26,36 +26,18 @@ if __name__ == "__main__":
     }
     os.environ["OPENAI_API_KEY"] = envs_dict["OPENAI_API_KEY"]
 
-    # Initialize argparse
-    parser = argparse.ArgumentParser(description="Description of your program")
-
-    # Add arguments
-    parser.add_argument(
-        "--config", type=str, help="Path to agent config file", default=""
-    )
-    parser.add_argument("--verbose", type=bool, help="Verbosity", default=False)
-    parser.add_argument(
-        "--max_num_turns",
-        type=int,
-        help="Maximum number of turns in the sales conversation",
-        default=10,
-    )
-
-    # Parse arguments
-    args = parser.parse_args()
-
     # Access arguments
     config_path = "kb/agent_config.json"
-    verbose = args.verbose
-    max_num_turns = args.max_num_turns
+    verbose = True
+    max_num_turns = 10
 
     audit = AuditLogger()
 
-    llm = ChatOpenAI(temperature=0.2)
+    llm = ChatOpenAI(temperature=0.1)
 
     with open(config_path, "r") as f:
         config = json.load(f)
-    (f"Agent config {config}")
+    audit.info(f"Agent config {config}")
     sales_agent = LlmLlcAgent.from_llm(llm, verbose=verbose, **config)
 
     sales_agent.seed_agent()
